@@ -36,6 +36,8 @@ The API base route is `https://api.venmo.com/v1`. In this section, you will find
 | Resource                                                     | Description                                      | Request Header Id           | Request Body Id              |
 | ------------------------------------------------------------ | :----------------------------------------------- | --------------------------- | ---------------------------- |
 | [`DELETE` `/oauth/access_token`](#sign-out)                    | Sign-Out, revoke the provided Access Token.      | [4](#request-header-schema) |                              |
+| [`GET` `/account`](#my-account) | Get currently authenitcated user's profile. | [4](#request-header-schema) | |
+| [`GET` `/me`](#my-account) | Alias for /account | [4](#request-header-schema) | |
 | [`GET` `/users/{user-id}`](#get-users-profile)                 | Get a user's public profile.                     | [4](#request-header-schema) |                              |
 | [`GET` `users/{user-id}/friends`](#users-friends-list)         | Get a user's friend's list.                      | [4](#request-header-schema) |                              |
 | [`GET` `/stories/{transaction-id}`](#transaction-info)         | Get a specific transaction information.          | [4](#request-header-schema) |                              |
@@ -384,6 +386,46 @@ _Body_
 Your Token is revoked.
 
 ---
+## My Account
+
+### Get authenticated User's Profile
+
+`GET` `/account`
+`GET` `/me`
+
+### Request
+
+_Header_
+
+| Key           | Example Value                                                | Required |
+| ------------- | ------------------------------------------------------------ | :------- |
+| Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
+
+### Response
+
+`Status: 200 OK`
+
+The user's profile information, plus some additional metadata.
+
+```json
+{
+  "is_goods_services_limited": false,
+  "user_new_default_funding_source_logic": false,
+  "is_suspended_for_disputes": false,
+  "is_indebted": false,
+  "cip_status": "not_started",
+  "is_balance_upgrade_user": false,
+  "available_instant_transfer_capabilities": ["banks", "cards"],
+  "notifications": {"outgoing_count": {...}, "incoming_count": 0},
+  "user": {see as User Profile reponse},
+  "is_limited_account" false,
+  "is_web_whitelisted": false,
+  "needs_verification": "not_required",
+  "testing_bucket_id": "999",
+  "balance": "0.00",
+  "automatic_transfer_enabled": false
+}
+```
 
 ## User
 

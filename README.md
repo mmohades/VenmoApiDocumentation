@@ -25,41 +25,42 @@ The API base route is `https://api.venmo.com/v1`. In this section, you will find
 
 ## Public Endpoints
 
-| Resource                                                     | Description                                          | Request Header Id           | Request Body Id         |
-| ------------------------------------------------------------ | :--------------------------------------------------- | --------------------------- | ----------------------- |
-| [`POST` `/oauth/access_token`](#loginget-access-token)         | Login using credentials or 2-factor.                 | [1](#request-header-schema) | [1](#request-body-json) |
-| [`GET` `/account/two-factor/token?client_id=1`](#two-factor-get-options) | Get the 2-factor authentication options. (sms, etc). | [2](#request-header-schema) |                         |
+| Resource                                                                   | Description                                          | Request Header Id           | Request Body Id         |
+| -------------------------------------------------------------------------- | :--------------------------------------------------- | --------------------------- | ----------------------- |
+| [`POST` `/oauth/access_token`](#loginget-access-token)                     | Login using credentials or 2-factor.                 | [1](#request-header-schema) | [1](#request-body-json) |
+| [`GET` `/account/two-factor/token?client_id=1`](#two-factor-get-options)   | Get the 2-factor authentication options. (sms, etc). | [2](#request-header-schema) |                         |
 | [`POST` `account/two-factor/token`](#two-factor-ask-for-text-message-code) | Ask Venmo to send you an OTP as a Text.              | [3](#request-header-schema) | [2](#request-body-json) |
 
 ## Authentication Required Endpoints
 
-| Resource                                                     | Description                                      | Request Header Id           | Request Body Id              |
-| ------------------------------------------------------------ | :----------------------------------------------- | --------------------------- | ---------------------------- |
-| [`DELETE` `/oauth/access_token`](#sign-out)                    | Sign-Out, revoke the provided Access Token.      | [4](#request-header-schema) |                              |
-| [`GET` `/users/{user-id}`](#get-users-profile)                 | Get a user's public profile.                     | [4](#request-header-schema) |                              |
-| [`GET` `users/{user-id}/friends`](#users-friends-list)         | Get a user's friend's list.                      | [4](#request-header-schema) |                              |
-| [`GET` `/stories/{transaction-id}`](#transaction-info)         | Get a specific transaction information.          | [4](#request-header-schema) |                              |
+| Resource                                                               | Description                                      | Request Header Id           | Request Body Id              |
+| ---------------------------------------------------------------------- | :----------------------------------------------- | --------------------------- | ---------------------------- |
+| [`DELETE` `/oauth/access_token`](#sign-out)                            | Sign-Out, revoke the provided Access Token.      | [4](#request-header-schema) |                              |
+| [`GET` `/users/{user-id}`](#get-users-profile)                         | Get a user's public profile.                     | [4](#request-header-schema) |                              |
+| [`GET` `users/{user-id}/friends`](#users-friends-list)                 | Get a user's friend's list.                      | [4](#request-header-schema) |                              |
+| [`GET` `/stories/{transaction-id}`](#transaction-info)                 | Get a specific transaction information.          | [4](#request-header-schema) |                              |
 | [`GET` `/stories/target-or-actor/{user-id}`](#users-transactions-list) | Get a list of the user's transactions.           | [4](#request-header-schema) |                              |
-| [`GET` `/payment-methods`](#available-payment-methods)         | Get the payment methods list, Venmo Balance, etc | [4](#request-header-schema) |                              |
-| [`POST` `/payments`](#make-a-payment-or-request-money)         | Make a payment or request money.                 | [5](#request-header-schema) | [3 or 4](#request-body-json) |
+| [`GET` `/payment-methods`](#available-payment-methods)                 | Get the payment methods list, Venmo Balance, etc | [4](#request-header-schema) |                              |
+| [`POST` `/payments`](#make-a-payment-or-request-money)                 | Make a payment or request money.                 | [5](#request-header-schema) | [3 or 4](#request-body-json) |
+| [`DELETE` `/users/{user-id}/friends/{friend-user-id}`](#delete-friend) | Delete a friend                                  | TODO                        |                              |
 
 ## Parameters
 
-| Name                    | Possible Value                         | Description                                                  |
-| ----------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| amount                  | 12.2                                   | \$12.20, the amount to charge or send in dollars. For charging, the number must be negative. |
-| audience                | private                                | enum { private, friends, public } The privacy of your payment. |
-| Authorization           | `Bearer <token>`                       | Your Access Token                                            |
-| device-id               | `88884260-05O3-8U81-58I1-2WA76F357GR9` | Phone's unique identifier that never changes.                |
+| Name                    | Possible Value                         | Description                                                                                                                    |
+| ----------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| amount                  | 12.2                                   | \$12.20, the amount to charge or send in dollars. For charging, the number must be negative.                                   |
+| audience                | private                                | enum { private, friends, public } The privacy of your payment.                                                                 |
+| Authorization           | `Bearer <token>`                       | Your Access Token                                                                                                              |
+| device-id               | `88884260-05O3-8U81-58I1-2WA76F357GR9` | Phone's unique identifier that never changes.                                                                                  |
 | funding_source_id       | 1513921002697097045                    | Payment Id, basically the source of the money that you are sending. For example, it can be your Venmo Balance or Bank Account. |
-| note                    | Pizza 🍕                                | The note of your transaction.                                |
-| Payment-id              | 1513921002697097045                    | Payment method's unique identifier, like your Venmo Balance Id or your Bank Checking account Id. |
-| password                | password123456                         | The user's account password in plain-text.                   |
-| phone_email_or_username | email@example.com                      | The user's account email address or username.                |
-| transaction-id          | 4246290347126270993                    | Transaction unique identifier.                               |
-| user-id                 | 4696228937479104362                    | User unique identifier.                                      |
-| Venmo-Otp               | 123456                                 | Venmo OTP received by text.                                  |
-| venmo-otp-secret        | `H02SO0WYEJKMLMC4...`                  | Temporary Identifier of a user required by all the 2-Factor requests. Expires in minutes. |
+| note                    | Pizza 🍕                               | The note of your transaction.                                                                                                  |
+| Payment-id              | 1513921002697097045                    | Payment method's unique identifier, like your Venmo Balance Id or your Bank Checking account Id.                               |
+| password                | password123456                         | The user's account password in plain-text.                                                                                     |
+| phone_email_or_username | email@example.com                      | The user's account email address or username.                                                                                  |
+| transaction-id          | 4246290347126270993                    | Transaction unique identifier.                                                                                                 |
+| user-id                 | 4696228937479104362                    | User unique identifier.                                                                                                        |
+| Venmo-Otp               | 123456                                 | Venmo OTP received by text.                                                                                                    |
+| venmo-otp-secret        | `H02SO0WYEJKMLMC4...`                  | Temporary Identifier of a user required by all the 2-Factor requests. Expires in minutes.                                      |
 
 ## Request Header Schema
 
@@ -90,10 +91,10 @@ Open endpoints do not require the Authentication Token. However, they can be use
 Each endpoint is related to the login process, including the two factor authentication and the final goal is to get the authorization token and use that in the routes that require Authentication. The token never expires, unless you logout.
 
 ### Login/Get Access Token
+
 Loggin in using your username and password in plain-text. Remember, if the `device-id` is trusted by your account, it will work. Otherwise, you will have to follow the 2-factor auth. process.
 
 `POST` `/oauth/access_token`
-
 
 #### Request
 
@@ -168,10 +169,10 @@ _Body_
 ---
 
 ### Two-Factor, Get Options
+
 Get the two-factor authentication options that you have for your account.
 
 `GET` `/account/two-factor/token?client_id=1`
-
 
 #### Request
 
@@ -235,7 +236,6 @@ Ask Venmo to text you the 2-factor code.
 
 `POST` `account/two-factor/token`
 
-
 #### Request
 
 _Header_
@@ -288,7 +288,6 @@ _Body_
 Loggin using your one-time password that received by text.
 
 `POST` `/oauth/access_token?client_id=1`
-
 
 #### Request
 
@@ -358,8 +357,8 @@ Revoke your Access Token.
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
 
 ### Response
@@ -395,8 +394,8 @@ Your Token is revoked.
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
 
 #### Response
@@ -454,8 +453,8 @@ Revoke your Access Token.
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
 
 _Parameters_
@@ -516,6 +515,56 @@ A list of all the friend's profile info of the provided user.
 }
 ```
 
+### Delete Friend
+
+`DELETE` `/users/{user-id}/friends/{friend-user-id}`
+
+### Transaction Info
+
+#### Request
+
+_Header_
+
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
+| Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
+| User-Agent    | Venmo/7.38.0 (iPhone; iOS 13.0; Scale/2.0)                              | TODO     |
+
+#### Response
+
+`Status: 401 Bad Request`
+
+TODO
+
+`Status: 200 OK`
+
+Friend was removed.
+
+```json
+{
+  "data": {
+    "about": " ",
+    "date_joined": "2013-10-15T04:15:41",
+    "display_name": "James Taylor",
+    "email": null,
+    "first_name": "James",
+    "friend_status": "not_friend",
+    "friends_count": 1000,
+    "id": "0000000000000000000",
+    "identity": null,
+    "identity_type": "personal",
+    "is_active": true,
+    "is_blocked": false,
+    "is_group": false,
+    "last_name": "Taylor",
+    "phone": null,
+    "profile_picture_url": "https://s3.amazonaws.com/venmo/no-image.gif",
+    "trust_request": null,
+    "username": "James-Taylor"
+  }
+}
+```
+
 ---
 
 ## Transaction
@@ -528,8 +577,8 @@ A list of all the friend's profile info of the provided user.
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
 
 #### Response
@@ -675,8 +724,8 @@ Revoke your Access Token.
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
 
 _Parameters_
@@ -837,8 +886,8 @@ A list of all the user's transactions. Max 50 per request.
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
 
 #### Response
@@ -921,10 +970,10 @@ In the request body, if the amount is positive, then you are sending the money. 
 
 _Header_
 
-| Key           | Example Value                                                | Required |
-| ------------- | ------------------------------------------------------------ | :------- |
+| Key           | Example Value                                                           | Required |
+| ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
-| Content-Type  | application/json                                             | True     |
+| Content-Type  | application/json                                                        | True     |
 
 _Body, Sending money_
 

@@ -42,7 +42,7 @@ The API base route is `https://api.venmo.com/v1`. In this section, you will find
 | [`GET` `/stories/target-or-actor/{user-id}`](#users-transactions-list) | Get a list of the user's transactions.           | [4](#request-header-schema) |                              |
 | [`GET` `/payment-methods`](#available-payment-methods)                 | Get the payment methods list, Venmo Balance, etc | [4](#request-header-schema) |                              |
 | [`POST` `/payments`](#make-a-payment-or-request-money)                 | Make a payment or request money.                 | [5](#request-header-schema) | [3 or 4](#request-body-json) |
-| [`DELETE` `/users/{user-id}/friends/{friend-user-id}`](#delete-friend) | Delete a friend                                  | TODO                        |                              |
+| [`DELETE` `/users/{user-id}/friends/{friend-user-id}`](#delete-friend) | Delete a friend                                  | [6](#request-header-schema) |                              |
 
 ## Parameters
 
@@ -71,7 +71,7 @@ The API base route is `https://api.venmo.com/v1`. In this section, you will find
 | 3     | device-id, venmo-otp-secret, Content-Type          |
 | 4     | device-id, venmo-otp-secret, Venmo-Otp, User-Agent |
 | 5     | Authorization                                      |
-| 6     | Authorization, Content-Type                        |
+| 6     | Authorization, Host                                |
 
 ## Request Body (JSON)
 
@@ -528,7 +528,7 @@ _Header_
 | Key           | Example Value                                                           | Required |
 | ------------- | ----------------------------------------------------------------------- | :------- |
 | Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
-| User-Agent    | Venmo/7.38.0 (iPhone; iOS 13.0; Scale/2.0)                              | TODO     |
+| Host          | api.venmo.com                                                           | True     |
 
 #### Response
 

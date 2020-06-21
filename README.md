@@ -532,9 +532,18 @@ _Header_
 
 #### Response
 
-`Status: 401 Bad Request`
+`Status: 401 Unauthorized`
 
-TODO
+```json
+{
+  "error": {
+    "message": "You did not pass a valid OAuth access token.",
+    "code": 261,
+    "links": null,
+    "title": "Error"
+  }
+}
+```
 
 `Status: 200 OK`
 

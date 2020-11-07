@@ -36,8 +36,9 @@ The API base route is `https://api.venmo.com/v1`. In this section, you will find
 | Resource                                                     | Description                                      | Request Header Id           | Request Body Id              |
 | ------------------------------------------------------------ | :----------------------------------------------- | --------------------------- | ---------------------------- |
 | [`DELETE` `/oauth/access_token`](#sign-out)                    | Sign-Out, revoke the provided Access Token.      | [4](#request-header-schema) |                              |
+| [`GET` `/me`](#get-your-user-profile)                                  | Get your user profile.                   | [5](#request-header-schema) |                              |
 | [`GET` `/users/{user-id}`](#get-users-profile)                 | Get a user's public profile.                     | [4](#request-header-schema) |                              |
-| [`GET` `users/{user-id}/friends`](#users-friends-list)         | Get a user's friend's list.                      | [4](#request-header-schema) |                              |
+| [`GET` `/users/{user-id}/friends`](#users-friends-list)         | Get a user's friend's list.                      | [4](#request-header-schema) |                              |
 | [`GET` `/stories/{transaction-id}`](#transaction-info)         | Get a specific transaction information.          | [4](#request-header-schema) |                              |
 | [`GET` `/stories/target-or-actor/{user-id}`](#users-transactions-list) | Get a list of the user's transactions.           | [4](#request-header-schema) |                              |
 | [`GET` `/payment-methods`](#available-payment-methods)         | Get the payment methods list, Venmo Balance, etc | [4](#request-header-schema) |                              |
@@ -386,6 +387,97 @@ Your Token is revoked.
 ---
 
 ## User
+
+### Get Your User Profile
+
+`GET` `/me`
+
+#### Request
+
+_Header_
+
+| Key           | Example Value                                                | Required |
+| ------------- | ------------------------------------------------------------ | :------- |
+| Authorization | Bearer 28735RJZ0MG3378R8HV6946Y64D077930MZO29REK1RQ7493966107H64P7764AG | True     |
+
+#### Response
+
+`Status: 401 Bad Request`
+
+_Body_
+
+```json
+{
+  "error": {
+    "message": "You did not pass a valid OAuth access token.",
+    "code": 261,
+    "links": null,
+    "title": "Error"
+  }
+}
+```
+
+`Status: 200 OK`
+
+Your user profile information.
+
+```json
+{
+  "feature_groups": [],
+  "is_goods_services_limited": false,
+  "use_new_default_funding_source_logic": true,
+  "is_suspended_for_disputes": false,
+  "is_indebted": false,
+  "cip_status": "passed",
+  "is_balance_upgrade_user": false,
+  "available_instant_transfer_capabilities": [
+      "banks",
+      "cards"
+  ],
+  "zendesk_identifier": "$$hjbvhjebvehjrbvehrjbvrehjvberhjvberh.ghfdjksghfdhjsghjfdkgyufgeryufbrefbreyubreyugregbreuygbreyugbreygbreyugbreyugberygergregreyugerygregregerghkjrhgulihgljkfdhgjghfjhgk.fghfverfgerlfbrehjkgbrebgerkgbrejkgbrehjgbe",
+  "notifications": {
+      "outgoing_count": {
+          "outgoing_requests_count": 0,
+          "outgoing_payments_count": 0
+      },
+      "incoming_count": 0
+  },
+  "qrc_rewards_enabled": true,
+  "user": {
+      "username": "JohnDoe",
+      "last_name": "Doe",
+      "friends_count": 100,
+      "is_group": false,
+      "is_active": true,
+      "trust_request": null,
+      "is_venmo_team": false,
+      "phone": "15551234567",
+      "profile_picture_url": "https://s3.amazonaws.com/venmo/no-image.gif",
+      "is_payable": true,
+      "is_blocked": false,
+      "id": "5611330498099736263",
+      "identity": {
+          "has_submitted": false
+      },
+      "date_joined": "2017-12-31T23:50:17",
+      "about": " ",
+      "display_name": "John Doe",
+      "identity_type": "personal",
+      "first_name": "John",
+      "friend_status": null,
+      "email": "john@doe.com"
+  },
+  "is_limited_account": false,
+  "is_web_whitelisted": false,
+  "needs_verification": "not_required",
+  "testing_bucket_id": "123",
+  "balance": "0.00",
+  "automatic_transfer_enabled": false,
+  "is_recovery_exempted": false
+}
+```
+
+---
 
 ### Get User's Profile
 

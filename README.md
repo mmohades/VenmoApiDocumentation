@@ -1,6 +1,6 @@
 # Venmo Unofficial API Documentation
 
-This is an unofficial documentation of the Venmo iOS app API. The API base route is : `https://api.venmo.com/v1/`
+This is an unofficial documentation of the Venmo iOS app API. The API base route is: `https://api.venmo.com/v1/`
 
 A Python wrapper for the Venmo API, here: [GitHub.com/mmohades/venmo](https://github.com/mmohades/venmo)
 
@@ -10,8 +10,8 @@ A Python wrapper for the Venmo API, here: [GitHub.com/mmohades/venmo](https://gi
   - [Public Endpoints](#public-endpoints)
   - [Authentication Required Endpoints](#authentication-required-endpoints)
   - [Parameters Description](#parameters)
-  - [Reuqest Header Schema](#request-header-schema)
-  - [Reuqest Body Schema](#request-body-JSON)
+  - [Request Header Schema](#request-header-schema)
+  - [Request Body Schema](#request-body-JSON)
 - [Public Endpoints](#public-endpoints-1)
   - [Login](#login)
 - [Authentication Required Endpoints](#authentication-required-endpoints-1)
@@ -91,7 +91,7 @@ Open endpoints do not require the Authentication Token. However, they can be use
 Each endpoint is related to the login process, including the two factor authentication and the final goal is to get the authorization token and use that in the routes that require Authentication. The token never expires, unless you logout.
 
 ### Login/Get Access Token
-Loggin in using your username and password in plain-text. Remember, if the `device-id` is trusted by your account, it will work. Otherwise, you will have to follow the 2-factor auth. process.
+Login in using your username and password in plain-text. Remember, if the `device-id` is trusted by your account, it will work. Otherwise, you will have to follow the 2-factor auth. process.
 
 `POST` `/oauth/access_token`
 
@@ -120,7 +120,7 @@ _Body_
 
 `Status: 400 Bad Request`
 
-`Status: 401 Unathorized`
+`Status: 401 Unauthorized`
 
 This means username and password was correct, but additional verification is required since the device-id is unknown for your account. You will need to do two additional steps for logging in with 2-factor. 1. Request for the text message to be sent to your phone. 2. Send the `code` you received on your phone to the Venmo and the `venmo-otp-secret` using this route.
 
@@ -181,7 +181,7 @@ _Request Header_
 | Key              | Example Value                                                      | Required | Description                                                                                                 |
 | ---------------- | ------------------------------------------------------------------ | :------- | ----------------------------------------------------------------------------------------------------------- |
 | device-id        | 88884260-05O3-8U81-58I1-2WA76F357GR9                               | True     | Mobile Unique Device Id                                                                                     |
-| venmo-otp-secret | `H02SO0WYEJKMLMC4TFKN5YZ7WHOJO4PAWCP8HFLP8NZANO2IDRCQJ5J1GGYNYXSP` | True     | The otp-secret that you receive in the response header when first try to loggin with username and password. |
+| venmo-otp-secret | `H02SO0WYEJKMLMC4TFKN5YZ7WHOJO4PAWCP8HFLP8NZANO2IDRCQJ5J1GGYNYXSP` | True     | The otp-secret that you receive in the response header when first try to login with username and password. |
 
 #### Response
 
@@ -244,7 +244,7 @@ _Header_
 | Key              | Example Value                                                      | Required | Description                                                                                                |
 | ---------------- | ------------------------------------------------------------------ | :------- | ---------------------------------------------------------------------------------------------------------- |
 | device-id        | 88884260-05O3-8U81-58I1-2WA76F357GR9                               | True     | Mobile Unique Device Id                                                                                    |
-| venmo-otp-secret | `H02SO0WYEJKMLMC4TFKN5YZ7WHOJO4PAWCP8HFLP8NZANO2IDRCQJ5J1GGYNYXSP` | True     | The otp-secret that you receive in the response header when first try to loggin with username and password |
+| venmo-otp-secret | `H02SO0WYEJKMLMC4TFKN5YZ7WHOJO4PAWCP8HFLP8NZANO2IDRCQJ5J1GGYNYXSP` | True     | The otp-secret that you receive in the response header when first try to login with username and password |
 | Content-Type     | application/json                                                   | True     | Send the server the body content type that is Json.                                                        |
 
 _Body_
@@ -286,7 +286,7 @@ _Body_
 
 ### Two-Factor, Get Access Token
 
-Loggin using your one-time password that received by text.
+Login using your one-time password that received by text.
 
 `POST` `/oauth/access_token?client_id=1`
 
@@ -298,7 +298,7 @@ _Header_
 | Key              | Example Value                                                      | Required | Description                                                                                                |
 | ---------------- | ------------------------------------------------------------------ | :------- | ---------------------------------------------------------------------------------------------------------- |
 | device-id        | 88884260-05O3-8U81-58I1-2WA76F357GR9                               | True     | Mobile Unique Device Id                                                                                    |
-| venmo-otp-secret | `H02SO0WYEJKMLMC4TFKN5YZ7WHOJO4PAWCP8HFLP8NZANO2IDRCQJ5J1GGYNYXSP` | True     | The otp-secret that you receive in the response header when first try to loggin with username and password |
+| venmo-otp-secret | `H02SO0WYEJKMLMC4TFKN5YZ7WHOJO4PAWCP8HFLP8NZANO2IDRCQJ5J1GGYNYXSP` | True     | The otp-secret that you receive in the response header when first try to login with username and password |
 | Venmo-Otp        | 123456                                                             | True     | OTP received by text.                                                                                      |
 | User-Agent       | Venmo/7.38.0 (iPhone; iOS 13.0; Scale/2.0)                         | False    |                                                                                                            |
 
@@ -554,7 +554,7 @@ _Parameters_
 
 | Key     | Example Value | Description                                         |
 | ------- | ------------- | --------------------------------------------------- |
-| limit=  | 1337          | Max number of profile in everyr request is 1337     |
+| limit=  | 1337          | Max number of profile in every request is 1337     |
 | offset= | 1337          | How many friends to offset. Can be used for paging. |
 
 #### Response

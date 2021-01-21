@@ -1,8 +1,10 @@
 # Venmo Unofficial API Documentation
 
-This is an unofficial documentation of the Venmo iOS app API. The API base route is: `https://api.venmo.com/v1/`
+This is an unofficial documentation of the Venmo iOS app API. The API base route is: `https://api.venmo.com/v1/`<br>A Python wrapper for the Venmo API, here: [GitHub.com/mmohades/venmo](https://github.com/mmohades/venmo)
 
-A Python wrapper for the Venmo API, here: [GitHub.com/mmohades/venmo](https://github.com/mmohades/venmo)
+Disclaimer: This is an individual effort and is not PayPal/Venmo sponsored or maintained. 
+
+----
 
 ## Table of Contents
 
